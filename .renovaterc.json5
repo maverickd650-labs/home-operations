@@ -8,9 +8,9 @@
     'github>home-operations/renovate-presets//apps/grafanaDashboards.json5#11.0.0',
     'github>home-operations/renovate-presets//apps/talosFactory.json5#11.0.0',
     'github>home-operations/renovate-presets//apps/searxng.json5#11.0.0',
-    'github>MaverickD650/home-operations//.renovate/labels.json5',
-    'github>MaverickD650/home-operations//.renovate/overrides.json5',
-    'github>MaverickD650/home-operations//.renovate/upgradeBlock.json5',
+    'github>MaverickD650-labs/home-operations//.renovate/labels.json5',
+    'github>MaverickD650-labs/home-operations//.renovate/overrides.json5',
+    'github>MaverickD650-labs/home-operations//.renovate/upgradeBlock.json5',
     ':timezone(Europe/London)',
   ],
   ignorePaths: [
