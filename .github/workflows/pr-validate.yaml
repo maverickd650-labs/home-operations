@@ -135,39 +135,20 @@ jobs:
               await github.rest.issues.createComment({ owner, repo, issue_number, body });
             }
 
-  automerge-and-approve:
+  status:
+    if: ${{ !cancelled() }}
+    name: Build Success
     needs:
-      - filter
       - flate-test
-    if: >-
-      ${{
-        always() &&
-        (
-          needs.filter.outputs.changed-files == '[]' ||
-          needs.flate-test.result == 'success'
-        )
-      }}
-    permissions:
-      pull-requests: write # required to automerge pull requests
-      contents: write # required to write to the repository
-    name: Automerge
-    runs-on: ubuntu-latest
-    environment:
-      name: bot
-      deployment: false
+    runs-on: ubuntu-26.04
+    permissions: {}
     steps:
-      - name: Generate Token
-        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
-        id: app-token
-        with:
-          client-id: ${{ vars.BOT_APP_CLIENT_ID }}
-          private-key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
-          permission-contents: write
-          permission-pull-requests: write
-      - name: automerge
-        uses: pascalgn/automerge-action@7961b8b5eec56cc088c140b56d864285eabd3f67 # v0.16.4
+      - name: Any jobs failed?
+        if: ${{ contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') }}
+        run: exit 1
+
+      - name: All jobs passed or skipped?
+        if: ${{ !(contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled')) }}
         env:
-          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
-          UPDATE_RETRIES: 12
-          UPDATE_RETRY_SLEEP: 60000
-          MERGE_METHOD: squash
+          RESULTS: ${{ toJSON(needs.*.result) }}
+        run: echo "All jobs passed or skipped" && echo "$RESULTS"
