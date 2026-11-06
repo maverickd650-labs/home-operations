@@ -13,7 +13,7 @@ spec:
     cleanupOnFail: true
   values:
     config:
-      repo: github://maverickd650/home-operations
+      repo: github://maverickd650-labs/home-operations
       statusChecks: true
       prComments: true
     secret:
