@@ -5,7 +5,7 @@ kind: HelmRelease
 metadata:
   name: rss2discord
 spec:
-  interval: 1h
+  interval: 2h
   chartRef:
     kind: OCIRepository
     name: rss2discord
