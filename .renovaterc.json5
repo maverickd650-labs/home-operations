@@ -11,6 +11,8 @@
     'github>MaverickD650-labs/home-operations//.renovate/labels.json5',
     'github>MaverickD650-labs/home-operations//.renovate/overrides.json5',
     'github>MaverickD650-labs/home-operations//.renovate/upgradeBlock.json5',
+    'github>MaverickD650-labs/home-operations//.renovate/autoMerge.json5',
+    'github>MaverickD650-labs/home-operations//.renovate/groups.json5',
     ':timezone(Europe/London)',
   ],
   ignorePaths: [
