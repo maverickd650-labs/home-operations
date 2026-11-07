@@ -51,8 +51,12 @@ spec:
             credentials: s3
             dest:
               enabled: true
+              moverSecurityContext:
+                runAsNonRoot: false
             src:
               enabled: true
+              moverSecurityContext:
+                runAsNonRoot: false
     cnpg:
       main:
         mode: recovery
