@@ -24,7 +24,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Install flux
-        uses: controlplaneio-fluxcd/distribution/actions/setup@f9313ed7aa563da91b5aa5ad7c0ad6c3f95aa517 # main
+        uses: controlplaneio-fluxcd/distribution/actions/setup@e2c283d0cba11916c6e98e7536831ecebb292365 # main
       - name: Install cosign
         uses: sigstore/cosign-installer@756fe2d284c7292c4e9b62c8a28f1e5629c59532 # v4.1.3
       - name: Login to GitHub Container Registry
@@ -47,7 +47,7 @@ jobs:
         env:
           REF_NAME: ${{ github.ref_name }}
       - name: Push artifact
-        uses: controlplaneio-fluxcd/distribution/actions/push@f9313ed7aa563da91b5aa5ad7c0ad6c3f95aa517 # main
+        uses: controlplaneio-fluxcd/distribution/actions/push@e2c283d0cba11916c6e98e7536831ecebb292365 # main
         id: push
         with:
           repository: ghcr.io/${{ github.repository }}
