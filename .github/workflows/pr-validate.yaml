@@ -47,7 +47,7 @@ jobs:
       - name: Flate Test
         env:
           FLATE_PATH: ./kubernetes/flux/cluster
-        run: flate test all --allow-missing-secrets
+        run: flate test all --allow-missing-kinds Secret
   flate-diff:
     if: ${{ needs.filter.outputs.changed-files != '[]' }}
     needs: filter
@@ -91,7 +91,7 @@ jobs:
         run: |
           {
             echo 'diff<<EOF'
-            flate diff "${{ matrix.kind }}" --allow-missing-secrets
+            flate diff "${{ matrix.kind }}" --allow-missing-kinds Secret
             echo 'EOF'
           } >> $GITHUB_OUTPUT
       - if: ${{ steps.diff.outputs.diff != '' }}
