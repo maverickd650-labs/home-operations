@@ -35,7 +35,8 @@ spec:
     limits:
       memory: 2Gi
   bootstrap:
-    initdb:
+    recovery:
+      source: linkwarden-recover
       database: linkwarden
       owner: linkwarden
       secret:
@@ -45,3 +46,10 @@ spec:
       isWALArchiver: true
       parameters:
         barmanObjectName: linkwarden-store
+  externalClusters:
+    - name: linkwarden-recover
+      plugin:
+        name: barman-cloud.cloudnative-pg.io
+        parameters:
+          barmanObjectName: linkwarden-store
+          serverName: linkwarden-postgres
