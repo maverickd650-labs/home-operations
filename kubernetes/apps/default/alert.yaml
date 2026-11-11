@@ -14,13 +14,13 @@ spec:
   data:
     - secretKey: githubAppID
       remoteRef:
-        key: GITHUB_APP_ID
+        key: renovate/GITHUB_LAB_ID
     - secretKey: githubAppInstallationID
       remoteRef:
-        key: GITHUB_APP_INSTALLATION_ID
+        key: renovate/GITHUB_LAB_INSTALL
     - secretKey: githubAppPrivateKey
       remoteRef:
-        key: MAVBOT_PEM
+        key: renovate/GITHUB_LAB_PEM
 ---
 # yaml-language-server: $schema=https://k8s-schemas.home-operations.com/notification.toolkit.fluxcd.io/provider_v1.json
 apiVersion: notification.toolkit.fluxcd.io/v1
