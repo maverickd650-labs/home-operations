@@ -9,4 +9,6 @@ spec:
     kind: OCIRepository
     name: volsync
   interval: 1h
-  values: {}
+  values:
+    metrics:
+      disableAuth: true
