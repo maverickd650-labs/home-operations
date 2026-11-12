@@ -1,0 +1,47 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/postgresql.cnpg.io/cluster_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: mealie-postgres
+  annotations:
+    cnpg.io/skipEmptyWalArchiveCheck: "enabled"
+  labels:
+    cnpg.io/reload: "on"
+spec:
+  instances: 1
+  imageCatalogRef:
+    apiGroup: postgresql.cnpg.io
+    kind: ClusterImageCatalog
+    name: postgresql-minimal-trixie
+    major: 18
+  postgresql:
+    synchronous:
+      method: any
+      number: 1
+      dataDurability: preferred
+  primaryUpdateStrategy: unsupervised
+  primaryUpdateMethod: switchover
+  enableSuperuserAccess: false
+  affinity:
+    podAntiAffinityType: preferred
+  storage:
+    size: 10Gi
+    storageClass: longhorn
+  resources:
+    requests:
+      cpu: 100m
+      memory: 512Mi
+    limits:
+      memory: 2Gi
+  bootstrap:
+    initdb:
+      database: mealie
+      owner: mealie
+      secret:
+        name: mealie-postgres-credentials
+  plugins:
+    - name: barman-cloud.cloudnative-pg.io
+      isWALArchiver: true
+      parameters:
+        barmanObjectName: mealie-store
