@@ -15,21 +15,6 @@ spec:
     cleanupOnFail: true
   uninstall:
     keepHistory: false
-  postRenderers:
-    - kustomize:
-        patches:
-          - target:
-              kind: ReplicationSource
-            patch: |
-              - op: add
-                path: /spec/restic/moverSecurityContext/runAsNonRoot
-                value: false
-          - target:
-              kind: ReplicationDestination
-            patch: |
-              - op: add
-                path: /spec/restic/moverSecurityContext/runAsNonRoot
-                value: false
   values:
     global:
       stopAll: false
