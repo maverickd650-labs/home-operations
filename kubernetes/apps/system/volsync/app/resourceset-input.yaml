@@ -37,3 +37,5 @@ spec:
         namespace: media
       - app: linkwarden
         namespace: default
+      - app: mealie
+        namespace: default
