@@ -24,6 +24,8 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     controllers:
       linkwarden:
+        annotations:
+          reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
