@@ -58,7 +58,6 @@ spec:
                   name: mealie-secret
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesytem: true
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
