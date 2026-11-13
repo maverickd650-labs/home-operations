@@ -5,63 +5,85 @@ kind: HelmRelease
 metadata:
   name: mealie
 spec:
+  interval: 1h
   chartRef:
     kind: OCIRepository
-    name: mealie
-  interval: 1h
-  timeout: 20m
-  maxHistory: 3
+    name: common
+    namespace: system
+  driftDetection:
+    mode: enabled
   upgrade:
     cleanupOnFail: true
-  uninstall:
-    keepHistory: false
   values:
-    global:
-      stopAll: false
-    credentials:
-      s3:
-        type: s3
-        url: "https://${S3URL2}"
-        bucket: "${S3PREFIX}-mealie"
-        accessKey: "${S3ID}"
-        secretKey: "${S3KEY}"
-        encrKey: "${S3KEY}"
-    mealie:
-      api:
-        smtp:
-          user: "${SMTP_USER}"
-          password: "${SMTP_PASSWORD}"
-          host: "${SMTP_HOST}"
-          port: 2525
-          from_name: Mealie
-          from_email: "${SMTP_EMAIL}"
-          auth_strategy: TLS
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
+    controllers:
+      mealie:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/mealie-recipes/mealie
+              tag: v3.30.0@sha256:90f83da6f3ab0a421efc827118a556168573930105f13fa3321768f42163d784
+            env:
+              BASE_URL: "https://mealie.${SECRET_DOMAIN}"
+              DB_ENGINE: "postgres"
+              POSTGRES_USER: "mealie"
+              POSTGRES_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: mealie-postgres-credentials
+                    key: password
+              POSTGRES_SERVER: "mealie-postgres-rw"
+              POSTGRES_PORT: 5432
+              POSTGRES_DB: "mealie"
+              OIDC_AUTH_ENABLED: true
+              OIDC_SIGNUP_ENABLED: true
+              OIDC_CONFIGURATION_URL: "https://pocket.${SECRET_DOMAIN}/.well-known/openid-configuration"
+              OIDC_PROVIDER_NAME: "Pocket ID"
+              OIDC_ADMIN_GROUP: "admin"
+              OIDC_USER_CLAIM: "preferred_username"
+              SMTP_AUTH_STRATEGY: TLS
+              SMTP_FROM_NAME: "Mealie"
+              SMTP_PORT: 2525
+              TZ: Europe/London
+            envFrom:
+              - secretRef:
+                  name: mealie-secret
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesytem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 100m
+                memory: 400Mi
+              limits:
+                memory: 600Mi
+
         oidc:
-          auth_enabled: true
-          sign_enabled: true
-          configuration_url: "${OIDC_DISCOVERY_URL}"
           client_id: "${MEALIE_OIDC_CLIENT}"
           client_secret: "${MEALIE_OIDC_SECRET}"
-          provider_name: "Pocket ID"
+    route:
+      app:
+        hostnames:
+          - "mealie.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+    service:
+      app:
+        ports:
+          http:
+            port: 9000
     persistence:
       data:
-        volsync:
-          - name: data
-            type: restic
-            credentials: s3
-            dest:
-              enabled: true
-            src:
-              enabled: true
-    cnpg:
-      main:
-        mode: recovery
-        cluster:
-          singleNode: true
-        backups:
-          enabled: true
-          retentionPolicy: "7d"
-          credentials: s3
-        recovery:
-          method: object_store
-          credentials: s3
+        existingClaim: mealie-config
+        globalMounts:
+          - path: /data/data
