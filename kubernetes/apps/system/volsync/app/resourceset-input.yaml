@@ -25,7 +25,7 @@ spec:
       capacity: "100Gi"
       schedule: "0 4 * * *"
       pvcSuffix: "config"
-      unlock: "202604070455434"
+      unlock: "202611130454434"
     apps:
       - app: pocket-id
         namespace: security
