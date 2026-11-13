@@ -30,4 +30,4 @@ spec:
     - major: 17
       image: ghcr.io/cloudnative-pg/postgresql:17.12-minimal-trixie@sha256:4ae89311e5031155a139a5c6d31a80f6deb135443711e61ff7df41cb549fdcaa
     - major: 16
-      image: ghcr.io/cloudnative-pg/postgresql:16.15-minimal-trixie@sha256:ead87f904c8f46e16fa9e809d2635d1cb39cfadbfe5c60e72c764633e4769775
+      image: ghcr.io/cloudnative-pg/postgresql:16.16-minimal-trixie@sha256:b51a1204a6978da0eeea8273181c002ce1f6da3001323ca80f74b054e3cb3d4a
