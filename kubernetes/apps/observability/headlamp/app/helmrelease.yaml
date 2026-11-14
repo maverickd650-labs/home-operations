@@ -14,8 +14,7 @@ spec:
     clusterRoleBinding:
       create: false
     config:
-      extraArgs:
-        - "-in-cluster"
+      unsafeUseServiceAccountToken: true
       watchPlugins: true
     pluginsManager:
       enabled: true
