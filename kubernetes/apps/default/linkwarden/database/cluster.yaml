@@ -14,7 +14,7 @@ spec:
     apiGroup: postgresql.cnpg.io
     kind: ClusterImageCatalog
     name: postgresql-minimal-trixie
-    major: 18
+    major: 19
   postgresql:
     synchronous:
       method: any
