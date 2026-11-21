@@ -1,0 +1,65 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: brscanr
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: brscanr
+  interval: 30m
+  timeout: 20m
+  maxHistory: 3
+  upgrade:
+    cleanupOnFail: true
+  uninstall:
+    keepHistory: false
+  driftDetection:
+    mode: enabled
+  postRenderers:
+    - kustomize:
+        patches:
+          - patch: |
+              apiVersion: apps/v1
+              kind: Deployment
+              metadata:
+                name: brscanr
+              spec:
+                template:
+                  spec:
+                    containers:
+                      - name: brscanr
+                        env:
+                          - name: TZ
+                            value: Europe/London
+            target:
+              kind: Deployment
+              name: brscanr
+  values:
+    fullnameOverride: brscanr
+    image:
+      tag: v0.1.0
+      digest: sha256:c0b4d9ba3ed72491700170c162e0e203b4be3142c1de68ca4c3eab4afda2c80e
+    scanner:
+      printerIP: 192.168.1.117
+      destination: Brscanr
+      buttonSource: feeder
+      insecureTLS: true
+    callback:
+      address: 192.168.20.60
+      annotations:
+        lbipam.cilium.io/ips: 192.168.20.60
+    paperless:
+      url: https://filing.${SECRET_DOMAIN}/
+      existingSecret: brscanr-secret
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        memory: 1Gi

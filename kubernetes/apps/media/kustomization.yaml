@@ -8,6 +8,7 @@ components:
 
 resources:
   - ./namespace.yaml
+  - ./brscanr/ks.yaml
   - ./calibre2/ks.yaml
   - ./filebrowser/ks.yaml
   - ./paperless-ngx/ks.yaml
