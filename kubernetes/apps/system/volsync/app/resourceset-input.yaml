@@ -39,3 +39,5 @@ spec:
         namespace: default
       - app: mealie
         namespace: default
+      - app: paperless-ngx
+        namespace: media
