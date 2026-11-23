@@ -1,45 +1,4 @@
 ---
-# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/generators.external-secrets.io/githubaccesstoken_v1alpha1.json
-apiVersion: generators.external-secrets.io/v1alpha1
-kind: GithubAccessToken
-metadata:
-  name: labs-auth-token
-spec:
-  appIDRef:
-    name: labs-bot-secret
-    key: labbot-app-id
-  installIDRef:
-    name: labs-bot-secret
-    key: labbot-app-install
-  auth:
-    privateKey:
-      secretRef:
-        name: labs-bot-secret
-        key: labbot-app-pem
----
-# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/external-secrets.io/externalsecret_v1.json
-apiVersion: external-secrets.io/v1
-kind: ExternalSecret
-metadata:
-  name: labs-auth-token
-spec:
-  refreshInterval: "30m0s"
-  target:
-    name: labs-repos
-    template:
-      type: Opaque
-      engineVersion: v2
-      data:
-        GITHUB_COM_TOKEN: "{{ .token }}"
-        GITHUB_COM_USER: TWF2ZXJpY2s2NTA=
-        RENOVATE_TOKEN: "{{ .token }}"
-  dataFrom:
-    - sourceRef:
-        generatorRef:
-          apiVersion: generators.external-secrets.io/v1alpha1
-          kind: GithubAccessToken
-          name: labs-auth-token
----
 # yaml-language-server: $schema=https://k8s-schemas.home-operations.com/renovate-operator.mogenius.com/renovatejob_v1alpha1.json
 apiVersion: renovate-operator.mogenius.com/v1alpha1
 kind: RenovateJob
@@ -133,7 +92,11 @@ spec:
     - name: renovate-config
       mountPath: /config
   schedule: "@hourly"
-  secretRef: labs-repos
+  githubAppReference:
+    secretName: labs-bot-credentials
+    appIdSecretKey: APP_ID
+    installationIdSecretKey: INSTALL_ID
+    pemSecretKey: PEM
   webhook:
     enabled: true
     authentication:
