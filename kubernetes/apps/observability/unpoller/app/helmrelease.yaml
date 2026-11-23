@@ -34,16 +34,9 @@ spec:
               tag: v5.10.0
             env:
               UP_INFLUXDB_DISABLE: "true"
-              UP_UNIFI_DEFAULT_URL:
-                valueFrom:
-                  secretKeyRef:
-                    name: unifi-secret
-                    key: UP_UNIFI_DEFAULT_URL
-              UP_UNIFI_DEFAULT_API_KEY:
-                valueFrom:
-                  secretKeyRef:
-                    name: unifi-secret
-                    key: UP_UNIFI_DEFAULT_API_KEY
+            envFrom:
+              - secretRef:
+                  identifier: unifi-secret
             probes:
               liveness: &probes
                 enabled: true
