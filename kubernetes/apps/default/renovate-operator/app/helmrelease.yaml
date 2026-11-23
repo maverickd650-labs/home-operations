@@ -11,6 +11,8 @@ spec:
   interval: 30m
   values:
     fullnameOverride: renovate-operator
+    crd:
+      mode: template
     deployment:
       labels:
         app.kubernetes.io/name: renovate-operator
