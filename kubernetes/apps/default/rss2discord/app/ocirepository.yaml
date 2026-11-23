@@ -26,7 +26,7 @@ spec:
     tag: latest
   url: oci://ghcr.io/maverickd650-labs/rss2discord-config
   secretRef:
-    name: ghcr-rss
+    name: ghcr-auth
   verify:
     provider: cosign
     matchOIDCIdentity:

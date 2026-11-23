@@ -10,7 +10,7 @@ spec:
     tag: latest
   url: oci://ghcr.io/maverickd650-labs/homepage-config
   secretRef:
-    name: ghcr-homepage
+    name: ghcr-auth
   verify:
     provider: cosign
     matchOIDCIdentity:
