@@ -24,7 +24,7 @@ spec:
   interval: 1h
   ref:
     tag: latest
-  url: oci://ghcr.io/maverickd650/rss2discord-config
+  url: oci://ghcr.io/maverickd650-labs/rss2discord-config
   secretRef:
     name: ghcr-rss
   verify:

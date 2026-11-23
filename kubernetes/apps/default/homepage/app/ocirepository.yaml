@@ -8,7 +8,7 @@ spec:
   interval: 1h
   ref:
     tag: latest
-  url: oci://ghcr.io/maverickd650/homepage-config
+  url: oci://ghcr.io/maverickd650-labs/homepage-config
   secretRef:
     name: ghcr-homepage
   verify:
