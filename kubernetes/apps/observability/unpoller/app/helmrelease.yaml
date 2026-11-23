@@ -36,7 +36,7 @@ spec:
               UP_INFLUXDB_DISABLE: "true"
             envFrom:
               - secretRef:
-                  identifier: unifi-secret
+                  name: unifi-secret
             probes:
               liveness: &probes
                 enabled: true
