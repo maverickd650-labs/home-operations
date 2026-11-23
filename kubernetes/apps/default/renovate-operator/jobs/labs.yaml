@@ -35,7 +35,11 @@ spec:
     limits:
       memory: 2420Mi
   schedule: "30 */6 * * *"
-  secretRef: labs-repos
+  githubAppReference:
+    secretName: labs-bot-credentials
+    appIdSecretKey: APP_ID
+    installationIdSecretKey: INSTALL_ID
+    pemSecretKey: PEM
   webhook:
     enabled: true
     authentication:
