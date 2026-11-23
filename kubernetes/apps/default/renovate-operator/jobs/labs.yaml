@@ -10,9 +10,8 @@ metadata:
 spec:
   provider:
     name: github
-  discoveryFilters:
-    - "maverickd650-labs/rss2discord"
-    - "maverickd650-labs/cluster-docs"
+  discoverTopics:
+    - renovate
   extraEnv:
     - name: RENOVATE_ALLOWED_ENV
       value: MISE_TRUSTED_CONFIG_PATHS
