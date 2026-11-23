@@ -82,7 +82,11 @@ spec:
     limits:
       memory: 2420Mi
   schedule: "30 */6 * * *"
-  secretRef: mavbot-home-ops
+  gitHubAppReference:
+    secretName: mavbot-credentials
+    appIdSecretKey: APP_ID
+    installationIdSecretKey: INSTALL_ID
+    pemSecretKey: PEM
   webhook:
     enabled: true
     authentication:
