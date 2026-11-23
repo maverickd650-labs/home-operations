@@ -82,7 +82,7 @@ spec:
     limits:
       memory: 2420Mi
   schedule: "30 */6 * * *"
-  gitHubAppReference:
+  githubAppReference:
     secretName: mavbot-credentials
     appIdSecretKey: APP_ID
     installationIdSecretKey: INSTALL_ID
