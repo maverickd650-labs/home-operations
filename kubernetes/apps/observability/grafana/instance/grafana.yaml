@@ -23,11 +23,14 @@ spec:
       enabled: "true"
       name: "Pocket ID"
       allow_sign_up: "true"
-      scopes: "openid profile email"
+      scopes: "openid profile email groups"
       email_attribute_path: email
       login_attribute_path: preferred_username
       name_attribute_path: name
       groups_attribute_path: groups
+      auth_url: "https://pocket.${SECRET_DOMAIN}/authorize"
+      token_url: "https://pocket.${SECRET_DOMAIN}/api/oidc/token"
+      api_url: "https://pocket.${SECRET_DOMAIN}/api/oidc/userinfo"
     log:
       mode: console
     metrics:
@@ -68,16 +71,6 @@ spec:
                     secretKeyRef:
                       name: grafana-secret
                       key: client-secret
-                - name: GF_AUTH_GENERIC_OAUTH_AUTH_URL
-                  valueFrom:
-                    secretKeyRef:
-                      name: grafana-secret
-                      key: auth-url
-                - name: GF_AUTH_GENERIC_OAUTH_TOKEN_URL
-                  valueFrom:
-                    secretKeyRef:
-                      name: grafana-secret
-                      key: token-url
               securityContext:
                 allowPrivilegeEscalation: false
                 readOnlyRootFilesystem: true
@@ -97,7 +90,7 @@ spec:
   httpRoute:
     spec:
       hostnames:
-        - monitor.g5yss.uk
+        - monitor.${SECRET_DOMAIN}
       parentRefs:
         - name: envoy-internal
           namespace: network
