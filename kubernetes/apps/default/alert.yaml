@@ -42,7 +42,7 @@ metadata:
   namespace: default
 spec:
   type: github
-  address: https://github.com/maverickd650/homepage-config
+  address: https://github.com/maverickd650-labs/homepage-config
   secretRef:
     name: github-status-token-secret
 ---
@@ -54,7 +54,7 @@ metadata:
   namespace: default
 spec:
   type: github
-  address: https://github.com/maverickd650/rss2discord-config
+  address: https://github.com/maverickd650-labs/rss2discord-config
   secretRef:
     name: github-status-token-secret
 ---
