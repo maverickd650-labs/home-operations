@@ -30,7 +30,7 @@ spec:
               FILEBROWSER_CONFIG: /config/config.yaml
             envFrom:
               - secretRef:
-                  name: filebrowser-secret
+                  name: filebrowser
             probes:
               liveness: &probes
                 enabled: true
