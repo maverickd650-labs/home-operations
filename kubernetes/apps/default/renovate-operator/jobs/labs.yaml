@@ -25,7 +25,7 @@ spec:
       value: "redis://dragonfly.system.svc.cluster.local:6379"
     - name: RENOVATE_REDIS_PREFIX
       value: "labs:"
-  image: ghcr.io/renovatebot/renovate:44.258.3
+  image: ghcr.io/renovatebot/renovate:44.261.2
   parallelism: 1
   resources:
     requests:
