@@ -38,7 +38,19 @@ spec:
               ALLOW_DOWNGRADE: "true"
             envFrom:
               - secretRef:
-                  name: pocket-secret
+                  name: pocket-id
+    externalSecret:
+      pocket-id:
+        refreshInterval: 6h
+        secretStoreRef:
+          kind: ClusterSecretStore
+          name: infisical
+        target:
+          name: pocket-id
+        data:
+          - secretKey: ENCRYPTION_KEY
+            remoteRef:
+              key: pocketid/ENCRYPTION_KEY
     service:
       main:
         ports:
