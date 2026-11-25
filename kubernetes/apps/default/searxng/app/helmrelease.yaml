@@ -26,7 +26,7 @@ spec:
             runAsGroup: *uid
             fsGroup: *uid
             fsGroupChangePolicy: OnRootMismatch
-            seccompProfile: {type: RuntimeDefault}
+            seccompProfile: { type: RuntimeDefault }
         strategy: RollingUpdate
         containers:
           main:
@@ -98,6 +98,18 @@ spec:
             subPath: settings.yml
       tmp:
         type: emptyDir
+    externalSecrets:
+      searxng:
+        refreshInterval: 6h
+        secretStoreRef:
+          kind: ClusterSecretStore
+          name: infisical
+        target:
+          name: searxng
+        data:
+          - secretKey: SEARXNG_SECRET
+            remoteRef:
+              key: SEARXNG_SECRET
     configMaps:
       config:
         data:
