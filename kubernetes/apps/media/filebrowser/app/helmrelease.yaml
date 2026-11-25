@@ -119,6 +119,24 @@ spec:
                   logoutRedirectUrl: "https://pocket.${SECRET_DOMAIN}/api/oidc/end-session"
                   groupsClaim: "groups"
                   adminGroup: "admin"
+    externalSecrets:
+      filebrowser:
+        refreshInterval: 6h
+        secretStoreRef:
+          kind: ClusterSecretStore
+          name: infisical
+        target:
+          name: filebrowser
+        data:
+          - secretKey: FILEBROWSER_ADMIN_PASSWORD
+            remoteRef:
+              key: FB_PASS
+          - secretKey: FILEBROWSER_OIDC_CLIENT_ID
+            remoteRef:
+              key: pocketid/filebrowser_client
+          - secretKey: FILEBROWSER_OIDC_CLIENT_SECRET
+            remoteRef:
+              key: pocketid/filebrowser_secret
     persistence:
       data:
         type: persistentVolumeClaim
