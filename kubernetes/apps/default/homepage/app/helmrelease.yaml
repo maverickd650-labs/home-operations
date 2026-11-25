@@ -38,13 +38,26 @@ spec:
               LOG_TARGETS: stdout
             envFrom:
               - secretRef:
-                  name: homepage-secret
+                  name: homepage
             resources:
               requests:
                 cpu: 10m
                 memory: 350M
               limits:
                 memory: 350M
+    externalSecrets:
+      homepage:
+        refreshInterval: 6h
+        secretStoreRef:
+          kind: ClusterSecretStore
+          name: infisical
+        target:
+          name: homepage
+        dataFrom:
+          - find:
+              path: /homepage
+              name:
+                regexp: ^HOMEPAGE_VAR_
     service:
       main:
         ports:
