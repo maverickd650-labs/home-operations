@@ -62,6 +62,24 @@ spec:
                 memory: 512Mi
               limits:
                 memory: 2Gi
+    externalSecrets:
+      linkwarden:
+        refreshInterval: 6h
+        secretStoreRef:
+          kind: ClusterSecretStore
+          name: infisical
+        target:
+          name: linkwarden
+        data:
+          - secretKey: OIDC_CLIENT_ID
+            remoteRef:
+              key: pocketid/linkwarden_client
+          - secretKey: OIDC_CLIENT_SECRET
+            remoteRef:
+              key: pocketid/linkwarden_secret
+          - secretKey: NEXTAUTH_SECRET
+            remoteRef:
+              key: LINKWARDEN_KEY
     route:
       app:
         hostnames:
