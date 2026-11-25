@@ -45,7 +45,7 @@ spec:
               OIDC_WELLKNOWN_URL: "https://pocket.${SECRET_DOMAIN}/.well-known/openid-configuration"
             envFrom:
               - secretRef:
-                  name: linkwarden-secret
+                  name: linkwarden
             probes:
               liveness:
                 enabled: true
