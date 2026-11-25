@@ -39,7 +39,7 @@ spec:
             envFrom:
               - secretRef:
                   name: pocket-id
-    externalSecret:
+    externalSecrets:
       pocket-id:
         refreshInterval: 6h
         secretStoreRef:
