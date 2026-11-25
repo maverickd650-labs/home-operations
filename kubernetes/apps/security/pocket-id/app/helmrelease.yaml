@@ -38,7 +38,7 @@ spec:
               ALLOW_DOWNGRADE: "true"
             envFrom:
               - secretRef:
-                  name: pocket-secret
+                  name: pocket-id
     externalSecrets:
       pocket-id:
         refreshInterval: 6h
