@@ -36,7 +36,7 @@ spec:
               UP_INFLUXDB_DISABLE: "true"
             envFrom:
               - secretRef:
-                  name: unifi-secret
+                  name: unpoller
             probes:
               liveness: &probes
                 enabled: true
