@@ -61,6 +61,21 @@ spec:
                 memory: 100Mi
               limits:
                 memory: 500Mi
+    externalSecrets:
+      unpoller:
+        refreshInterval: 6h
+        secretStoreRef:
+          kind: ClusterSecretStore
+          name: infisical
+        target:
+          name: unpoller
+        data:
+          - secretKey: UP_UNIFI_DEFAULT_URL
+            remoteRef:
+              key: UP_UNIFI_DEFAULT_URL
+          - secretKey: UP_UNIFI_DEFAULT_API_KEY
+            remoteRef:
+              key: UP_UNIFI_DEFAULT_API_KEY
     service:
       app:
         enabled: true
