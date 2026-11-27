@@ -6,9 +6,17 @@ metadata:
   name: konflate
 spec:
   interval: 1h
-  chartRef:
+  chart:
     kind: OCIRepository
-    name: konflate
+    spec:
+      url: oci://ghcr.io/home-operations/charts/konflate
+      ref:
+        tag: 0.6.6
+      verify:
+        provider: cosign
+        matchOIDCIdentity:
+          - issuer: "^https://token.actions.githubusercontent.com$"
+            subject: "^https://github.com/home-operations/konflate.*$"
   upgrade:
     cleanupOnFail: true
   values:
