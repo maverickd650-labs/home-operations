@@ -6,9 +6,17 @@ metadata:
   name: rss2discord
 spec:
   interval: 1h
-  chartRef:
+  chart:
     kind: OCIRepository
-    name: rss2discord
+    spec:
+      url: oci://ghcr.io/maverickd650-labs/charts/rss2discord-operator
+      ref:
+        tag: 0.19.2
+      verify:
+        provider: cosign
+        matchOIDCIdentity:
+          - issuer: "https://token.actions.githubusercontent.com"
+            subject: "^https://github.com/maverickd650-labs/rss2discord.*$"
   upgrade:
     cleanupOnFail: true
     crds: CreateReplace

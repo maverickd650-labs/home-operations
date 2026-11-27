@@ -3,22 +3,6 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
-  name: rss2discord
-spec:
-  interval: 1h
-  ref:
-    tag: 0.19.2
-  url: oci://ghcr.io/maverickd650-labs/charts/rss2discord-operator
-  verify:
-    provider: cosign
-    matchOIDCIdentity:
-      - issuer: "https://token.actions.githubusercontent.com"
-        subject: "^https://github.com/maverickd650-labs/rss2discord.*$"
----
-# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/source.toolkit.fluxcd.io/ocirepository_v1.json
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: OCIRepository
-metadata:
   name: rss2discord-config
 spec:
   interval: 1h
