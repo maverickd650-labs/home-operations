@@ -5,9 +5,17 @@ kind: HelmRelease
 metadata:
   name: snapshot-controller
 spec:
-  chartRef:
+  chart:
     kind: OCIRepository
-    name: snapshot-controller
+    spec:
+      url: oci://ghcr.io/home-operations/charts/snapshot-controller
+      ref:
+        tag: 0.1.2
+      verify:
+        provider: cosign
+        matchOIDCIdentity:
+          - issuer: "^https://token.actions.githubusercontent.com$"
+            subject: "^https://github.com/home-operations/helm-charts.*$"
   interval: 1h
   install:
     crds: CreateReplace

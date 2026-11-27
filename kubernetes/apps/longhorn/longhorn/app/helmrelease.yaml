@@ -6,9 +6,17 @@ metadata:
   name: longhorn
 spec:
   releaseName: longhorn
-  chartRef:
+  chart:
     kind: OCIRepository
-    name: longhorn
+    spec:
+      url: oci://ghcr.io/home-operations/charts-mirror/longhorn
+      ref:
+        tag: 1.13.0
+      verify:
+        provider: cosign
+        matchOIDCIdentity:
+          - issuer: ^https://token.actions.githubusercontent.com$
+            subject: ^https://github.com/home-operations/charts-mirror.*$
   interval: 1h
   install:
     crds: CreateReplace
@@ -39,4 +47,3 @@ spec:
         enabled: true
     networkPolicies:
       restrictInternalTraffic: false
-
